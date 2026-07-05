@@ -14,3 +14,11 @@
 docker compose build backend jupyter
 docker compose up -d --no-deps backend jupyter
 ```
+
+## Git Config Defaults
+
+- 提交代码时，Git 用户名必须为 `bloom8262`，邮箱为 `bloom8262@users.noreply.github.com`（切勿使用 `root`）。
+
+## Docker Container Management
+
+- 不要在未经用户明确确认的情况下，自动或擅自重新启动 Docker 容器，防止中断用户正在运行的任务。
