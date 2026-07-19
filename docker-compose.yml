@@ -68,6 +68,14 @@ services:
       DB_USER: ${DB_USER:-backquant_user}
       DB_PASSWORD: ${DB_PASSWORD:-backquant_pass}
       DB_TABLE: ${DB_TABLE:-dbbardata}
+      US_EQUITY_DB_HOST: ${US_EQUITY_DB_HOST:-mariadb}
+      US_EQUITY_DB_PORT: ${US_EQUITY_DB_PORT:-3306}
+      US_EQUITY_DB_USER: ${US_EQUITY_DB_USER:-root}
+      US_EQUITY_DB_PASSWORD: ${US_EQUITY_DB_PASSWORD:-${MYSQL_ROOT_PASSWORD:-backquant_root_pass}}
+      US_EQUITY_DB_NAME: ${US_EQUITY_DB_NAME:-us_equity}
+      US_EQUITY_DB_TABLE: ${US_EQUITY_DB_TABLE:-tb_us_equity_1d}
+      US_EQUITY_DATA_DIR: /data/backtest/us_equity
+      US_EQUITY_SYMBOLS: ${US_EQUITY_SYMBOLS:-QQQ,TQQQ,VOO}
     volumes:
       - backtest_data:/data/backtest
       - rqalpha_bundle:/data/rqalpha/bundle

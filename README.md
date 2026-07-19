@@ -101,6 +101,10 @@ docker compose down -v        # ⚠️ 危险：会同时删除所有 volume，�
 - 示例 Notebook：`docs/notebooks/example.ipynb`
 - 详细说明：`docs/jupyter.md`
 
+### 美股日线数据
+
+- 下载、增量更新及 MariaDB 导入：`docs/us-equity-data.md`
+
 ### Nginx 反代说明
 
 生产环境可参考 `docs/nginx.md`。
