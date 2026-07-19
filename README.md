@@ -8,7 +8,7 @@
 <u>**完全本地化部署，策略和数据本地运行，不依赖第三方平台，既保障隐私安全，又具备高度可定制性。**</u>
 
 本仓库包含后端（Flask + RQAlpha）与前端（Vue 3）两部分，并提供 Research 工作台（Jupyter Lab）集成能力。
-支持 **RQAlpha 股票日线回测** 与 **VnPy 期货 CTA 策略可视化回测**，期货数据从 rqalpha bundle 一键导入 MariaDB。
+支持 **RQAlpha 股票日线回测**、**美股日线下载与 MariaDB 增量导入**，以及 **VnPy 期货 CTA 策略可视化回测**；期货数据可从 rqalpha bundle 一键导入 MariaDB。
 **推荐使用 Docker 安装部署**，一次性包含 Flask、Jupyter、Nginx 与前端构建产物
 
 ## 一、Docker 安装与部署
@@ -103,7 +103,25 @@ docker compose down -v        # ⚠️ 危险：会同时删除所有 volume，�
 
 ### 美股日线数据
 
-- 下载、增量更新及 MariaDB 导入：`docs/us-equity-data.md`
+支持从 Yahoo Finance 下载股票、ETF 和指数日线，并增量导入 MariaDB。重复执行时按
+`(symbol, date)` 更新数据，不会清空数据库中已有的其他标的。
+
+在现有 `backend` 容器中新增普通标的，例如 `SPY`：
+
+```bash
+docker compose exec backend \
+  python /app/import_us_equity_to_mariadb.py --download SPY
+```
+
+Yahoo 代码与数据库标的名称不同时，使用 `数据库名称=Yahoo代码`；例如导入 VIX：
+
+```bash
+docker compose exec backend \
+  python /app/import_us_equity_to_mariadb.py --download 'VIX=^VIX'
+```
+
+脚本也内置了 VIX 映射，因此可以直接使用 `--download VIX`。完整的配置、批量导入及
+数据清单查询方法见 `docs/us-equity-data.md`。
 
 ### Nginx 反代说明
 
